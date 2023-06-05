@@ -17,7 +17,7 @@ const UserSchema = new Schema({
     type: String,
     enum: ["buyer", "seller"],
     set: function (value) {
-      console.log("set-value", value);
+      // console.log("set-value", value);
       // this.role = value.toLowerCase;
       return value.toLowerCase();
     },
@@ -28,4 +28,4 @@ const UserSchema = new Schema({
   },
 });
 
-module.exports = mongoose.model("User", UserSchema);
+module.exports = mongoose.model("users", UserSchema);
