@@ -1,5 +1,5 @@
 const express = require("express");
-const users = require("./model/users");
+const users = require("./model/User");
 const app = express();
 require("./config/database");
 app.use(express.json());
@@ -13,16 +13,24 @@ app.post("/api/signup", async (req, res) => {
     if (err.name == "ValidationError") {
       res.status(400).send({
         err: err.massage,
-        errors: [
-          // {
-          //   params: "password",
-          //   msg: "required",
-          // },
-          // {
-          //   params: "password",
-          //   msg: "required",
-          // }
-        ],
+        // errors: [
+        //   // {
+        //   //   params: "name",
+        //   //   msg: "required",
+        //   // },
+        //   // {
+        //   //   params: "email",
+        //   //   msg: "required",
+        //   // },
+        //   // {
+        //   //   params: "role",
+        //   //   msg: "required",
+        //   // },
+        //   // {
+        //   //   params: "password",
+        //   //   msg: "required",
+        //   // },
+        // ],
       });
     } else {
       res.status(500).send({
@@ -32,9 +40,11 @@ app.post("/api/signup", async (req, res) => {
   }
 });
 
-app.get("/api/login", async (req, res) => {
-  let user = await users(req.body);
-  res.send(user);
+app.post("/api/getusers", async (req, res) => {
+  let user = await users.findOne({
+    email: req.body.email,
+  });
+  res.send(user.password11);
 });
 
 app.listen(8080, () => {
